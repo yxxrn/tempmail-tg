@@ -1,0 +1,12 @@
+node_modules/
+.wrangler/
+.dev.vars
+dist/
+*.log
+.DS_Store
+.deploy_secrets.local
+.deploy_status.md
+*.local
+.env
+.env.*
+!.env.example
