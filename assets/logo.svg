@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="tempmail-tg logo">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#0b1220"/>
+  <rect x="22" y="34" width="84" height="58" rx="10" fill="none" stroke="url(#g)" stroke-width="6"/>
+  <path d="M28 40 L64 68 L100 40" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="96" cy="86" r="18" fill="#229ED9"/>
+  <path d="M88 86 l12 -5 -15 9 4 2 2 5 3 -4 6 3 z" fill="#fff"/>
+</svg>
