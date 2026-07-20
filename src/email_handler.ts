@@ -4,7 +4,8 @@ import { randomId } from "./ids";
 import { BODY_MAX, MAX_MAILS, truncateBody } from "./limits";
 import { normalizeEmailAddr, stripHtml } from "./mail_parse";
 import { extractOtp } from "./otp";
-import { sendMessage } from "./telegram";
+import { sendMessage, sendWithInline } from "./telegram";
+import type { InlineRow } from "./telegram";
 import PostalMime from "postal-mime";
 
 export async function handleInboundEmail(
@@ -72,15 +73,27 @@ export async function handleInboundEmail(
   await trimMails(env.DB, addressRow.id, MAX_MAILS);
 
   const otp = extractOtp(bodyText) || extractOtp(subject);
-  const preview = [
-    `📩 ${addressRow.address}`,
-    `Dari: ${normalizeEmailAddr(fromHeader) || fromHeader}`,
-    `Subj: ${subject}`,
-    otp ? `OTP: ${otp}` : null,
-    `/read ${mailId}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
+  const receivedTime = new Date(now).toLocaleString("id-ID", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
 
-  await sendMessage(env, addressRow.owner_chat_id, preview);
+  const text = [
+    "📩 <b>Mail Baru!</b>",
+    "",
+    `📧 <code>${addressRow.address}</code>`,
+    "",
+    `👤 Dari: <code>${normalizeEmailAddr(fromHeader) || fromHeader}</code>`,
+    `📌 Subj: ${subject}`,
+    `🕐 ${receivedTime}`,
+    otp ? `\n🔑 <b>OTP:</b> <code>${otp}</code>` : "",
+  ].join("\n");
+
+  const rows: InlineRow[] = [
+    [{ text: `📖 Baca Mail`, data: `mail:read:${mailId}` }],
+    [{ text: "📥 Lihat Inbox", data: `addr:inbox:${addressRow.id}` }],
+    [{ text: "📋 /list", data: "start:list" }],
+  ];
+
+  await sendWithInline(env, addressRow.owner_chat_id, text, rows, "HTML");
 }
