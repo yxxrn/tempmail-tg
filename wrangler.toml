@@ -6,10 +6,10 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "tempmail"
-database_id = "REPLACE_AFTER_CREATE"
+database_id = "582ef0ea-c744-4678-8790-69556a2b0fdb"
 migrations_dir = "migrations"
 
 [vars]
 MULTI_USER = "false"
 # Comma-separated Telegram chat IDs allowed to use the bot (bootstrap admin list)
-ALLOWED_CHAT_IDS = ""
+ALLOWED_CHAT_IDS = "1323141169"
